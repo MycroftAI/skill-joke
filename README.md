@@ -1,4 +1,4 @@
-# Joke Skill
+# :smile: Joke Skill
 
 ## Usage:
 * `joke`
