@@ -1,6 +1,5 @@
 # :smile: Joke Skill
-# 123
-## Usage:
+# Usage:
 * `joke`
 * `make me laugh`
 * `brighten my day`
