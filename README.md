@@ -5,4 +5,4 @@
 * `brighten my day`
 * `tell a me joke`
 
-# now with bad chuck norris!
+# now with super bad chuck norris jokes!
