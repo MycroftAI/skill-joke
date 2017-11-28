@@ -21,24 +21,39 @@ from os.path import dirname, join
 import pyjokes
 
 from adapt.intent import IntentBuilder
-from mycroft.skills.core import MycroftSkill
-from mycroft.util.log import getLogger
+from mycroft.skills.core import MycroftSkill, intent_handler
+from random import choice
 
-__author__ = 'crios'
 
-LOGGER = getLogger(__name__)
+joke_types = ['chuck', 'neutral']
 
 
 class JokingSkill(MycroftSkill):
     def __init__(self):
         super(JokingSkill, self).__init__(name="JokingSkill")
 
-    def initialize(self):
-        intent = IntentBuilder("JokingIntent").require("JokingKeyword").build()
-        self.register_intent(intent, self.handle_intent)
+    def speak_joke(self, lang, category):
+        self.speak(pyjokes.get_joke(language=lang, category=category))
 
-    def handle_intent(self, message):
-        self.speak(pyjokes.get_joke(language=self.lang[:-3], category='all'))
+    @intent_handler(IntentBuilder("JokingIntent").require("Joke"))
+    def handle_general_joke(self, message):
+        selected = choice(joke_types)
+        self.speak_joke(self.lang[:-3], selected)
+
+    @intent_handler(IntentBuilder("ChuckJokeIntent").require("Joke")
+        .require("Chuck"))
+    def handle_chuck_joke(self, message):
+        self.speak_joke(self.lang[:-3], 'chuck')
+
+    @intent_handler(IntentBuilder("NeutralJokeIntent").require("Joke")
+        .require("Neutral"))
+    def handle_neutral_joke(self, message):
+        self.speak_joke(self.lang[:-3], 'neutral')
+
+    @intent_handler(IntentBuilder("AdultJokeIntent").require("Joke")
+        .require("Adult"))
+    def handle_adult_joke(self, message):
+        self.speak_joke(self.lang[:-3], 'adult')
 
     def stop(self):
         pass
