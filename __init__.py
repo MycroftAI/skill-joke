@@ -37,17 +37,17 @@ class JokingSkill(MycroftSkill):
         self.speak_joke(self.lang[:-3], selected)
 
     @intent_handler(IntentBuilder("ChuckJokeIntent").require("Joke")
-        .require("Chuck"))
+                    .require("Chuck"))
     def handle_chuck_joke(self, message):
         self.speak_joke(self.lang[:-3], 'chuck')
 
     @intent_handler(IntentBuilder("NeutralJokeIntent").require("Joke")
-        .require("Neutral"))
+                    .require("Neutral"))
     def handle_neutral_joke(self, message):
         self.speak_joke(self.lang[:-3], 'neutral')
 
     @intent_handler(IntentBuilder("AdultJokeIntent").require("Joke")
-        .require("Adult"))
+                    .require("Adult"))
     def handle_adult_joke(self, message):
         self.speak_joke(self.lang[:-3], 'adult')
 
