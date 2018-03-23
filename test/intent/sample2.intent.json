@@ -2,6 +2,6 @@
   "utterance": "make me laugh",
   "intent_type": "JokingIntent",
   "intent": {
-    "JokingKeyword": "make me laugh"
+    "Joke": "make me laugh"
   }
 }
