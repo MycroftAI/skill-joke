@@ -15,11 +15,12 @@ _WARNING:  Laughter is not guaranteed, but eye rolls are likely._
 
 ## Examples 
 * "Make me laugh"
+* "Tell me a joke"
 * "Tell me a Chuck Norris joke"
 * "I want to hear a raunchy joke"
 * "How about a neutral joke"
 
 ## Credits 
-Mycroft AI
+@MycroftAI
 
 Everyone at https://github.com/pyjokes/pyjokes!
