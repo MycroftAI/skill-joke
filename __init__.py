@@ -46,11 +46,6 @@ class JokingSkill(MycroftSkill):
     def handle_neutral_joke(self, message):
         self.speak_joke(self.lang[:-3], 'neutral')
 
-    @intent_handler(IntentBuilder("AdultJokeIntent").require("Joke")
-                    .require("Adult"))
-    def handle_adult_joke(self, message):
-        self.speak_joke(self.lang[:-3], 'adult')
-
     def stop(self):
         pass
 
