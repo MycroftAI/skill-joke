@@ -33,8 +33,11 @@ class JokingSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder("JokingIntent").require("Joke"))
     def handle_general_joke(self, message):
-        selected = choice(joke_types)
-        self.speak_joke(self.lang[:-3], selected)
+        if self.lang[:-3]=='eu':
+            self.speak_dialog("joke")
+        else:
+            selected = choice(joke_types)
+            self.speak_joke(self.lang[:-3], selected)
 
     @intent_handler(IntentBuilder("ChuckJokeIntent").require("Joke")
                     .require("Chuck"))
