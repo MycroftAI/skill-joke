@@ -12,43 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from os.path import dirname, join
+from random import choice
 
 import pyjokes
 
 from adapt.intent import IntentBuilder
-from mycroft.skills.core import MycroftSkill, intent_handler
-from random import choice
-
+from mycroft.skills import MycroftSkill, intent_handler
 
 joke_types = ['chuck', 'neutral']
 
 
 class JokingSkill(MycroftSkill):
-    def __init__(self):
-        super(JokingSkill, self).__init__(name="JokingSkill")
+    def __init__(self, skill_id: str):
+        super().__init__(skill_id=skill_id, name="JokingSkill")
 
     def speak_joke(self, lang, category):
-        self.speak(pyjokes.get_joke(language=lang, category=category))
+        joke = pyjokes.get_joke(language=lang, category=category)
+        return self.end_session(speak=joke)
 
     @intent_handler(IntentBuilder("JokingIntent").require("Joke"))
     def handle_general_joke(self, message):
         selected = choice(joke_types)
-        self.speak_joke(self.lang[:-3], selected)
+        return self.speak_joke(self.lang[:-3], selected)
 
     @intent_handler(IntentBuilder("ChuckJokeIntent").require("Joke")
                     .require("Chuck"))
     def handle_chuck_joke(self, message):
-        self.speak_joke(self.lang[:-3], 'chuck')
+        return self.speak_joke(self.lang[:-3], 'chuck')
 
     @intent_handler(IntentBuilder("NeutralJokeIntent").require("Joke")
                     .require("Neutral"))
     def handle_neutral_joke(self, message):
-        self.speak_joke(self.lang[:-3], 'neutral')
-
-    def stop(self):
-        pass
+        return self.speak_joke(self.lang[:-3], 'neutral')
 
 
-def create_skill():
-    return JokingSkill()
+def create_skill(skill_id: str):
+    return JokingSkill(skill_id=skill_id)
